@@ -31,7 +31,14 @@ const Roster: React.FC = () => {
       const allWrestlers = await db.wrestlers.toArray();
       const allTitles = await db.championships.toArray();
 
-      setBrands(allBrands.filter(b => b.name !== 'FREE AGENT' && b.name !== 'SHARED'));
+      const uniqueBrands = Array.from(
+        new Map(allBrands
+          .filter(b => b.name !== 'FREE AGENT' && b.name !== 'SHARED')
+          .map(b => [b.name, b])
+        ).values()
+      ).sort((a, b) => (a.priority || 0) - (b.priority || 0));
+
+      setBrands(uniqueBrands);
       setWrestlers(allWrestlers);
       setTitles(allTitles);
       setLoading(false);

@@ -12,6 +12,12 @@ describe('Roster Page', () => {
   });
 
   it('renders the three brand columns after loading', async () => {
+    await db.brands.bulkAdd([
+      { name: 'RAW', primaryColor: '#ff0000', secondaryColor: '#000000', logo: 'raw-logo', priority: 1, isMajorBrand: true, isShared: false },
+      { name: 'SMACKDOWN', primaryColor: '#0000ff', secondaryColor: '#000000', logo: 'sd-logo', priority: 2, isMajorBrand: true, isShared: false },
+      { name: 'NXT', primaryColor: '#ffff00', secondaryColor: '#000000', logo: 'nxt-logo', priority: 3, isMajorBrand: true, isShared: false }
+    ]);
+
     render(
       <MemoryRouter>
         <Roster />
@@ -27,6 +33,12 @@ describe('Roster Page', () => {
   });
 
   it('renders dummy wrestlers in their columns', async () => {
+    const rawId = await db.brands.add({ name: 'RAW', primaryColor: '#ff0000', secondaryColor: '#000000', logo: 'raw-logo', priority: 1, isMajorBrand: true, isShared: false });
+    await db.wrestlers.bulkAdd([
+      { id: 1, name: 'Seth Rollins', brandId: rawId, gender: 'Male', alignment: 'Face', rating: 90, wins: 0, losses: 0, draws: 0, injuryWeeks: 0, injuryStatus: 'None', matchesSeason: 0, moral: 100, currentTitlesIds: [], historicalTitlesIds: [], isActive: true, contract: 'Full-time' },
+      { id: 2, name: 'Cody Rhodes', brandId: rawId, gender: 'Male', alignment: 'Face', rating: 92, wins: 0, losses: 0, draws: 0, injuryWeeks: 0, injuryStatus: 'None', matchesSeason: 0, moral: 100, currentTitlesIds: [], historicalTitlesIds: [], isActive: true, contract: 'Full-time' }
+    ]);
+
     render(
       <MemoryRouter>
         <Roster />

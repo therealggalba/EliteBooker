@@ -10,7 +10,7 @@ describe('Header Component', () => {
         <Header />
       </MemoryRouter>
     )
-    expect(screen.getByText(/EliteBooker/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /EliteBooker/i, level: 1 })).toBeInTheDocument()
   })
 
   it('renders navigation buttons', () => {
@@ -20,7 +20,9 @@ describe('Header Component', () => {
       </MemoryRouter>
     )
     expect(screen.getByRole('link', { name: /Home/i })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /About/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Roster/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Archive/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Options/i })).toBeInTheDocument()
   })
 
   it('is fixed to the top', () => {
