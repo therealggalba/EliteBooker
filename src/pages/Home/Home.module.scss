@@ -1,0 +1,123 @@
+.homeSection {
+  padding-bottom: 2rem;
+}
+
+.hero {
+  background-size: cover;
+  background-position: center;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  margin-bottom: 0.4rem;
+  border: 1px solid #333;
+
+  .heroTitle {
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
+.grid {
+  display: flex;
+  justify-content: space-around;
+  justify-self: center;
+  width: 70%;
+  gap: 3rem;
+}
+
+.electricCardWrapper {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    transform: translateY(-10px) scale(1.02);
+    z-index: 10;
+  }
+}
+
+.eventCard {
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+
+  &.semanal {
+    .eventTitle, .eventAction { color: #e00012; }
+  }
+
+  &.especial {
+    .eventTitle, .eventAction { color: #ffd700; }
+  }
+
+  .eventTitle {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .eventDescription {
+    color: #b3b3b3;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .eventAction {
+    margin-top: auto;
+    padding-top: 1rem;
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+}
+
+.infoSection {
+  margin-top: 5rem;
+  padding: 2rem;
+  background: linear-gradient(145deg, #151515, #0a0a0a);
+  border-radius: 20px;
+  border: 1px solid #333;
+
+  .infoTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+
+  .infoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+  }
+
+  .infoItem {
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    p {
+      color: #b3b3b3;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+  }
+}

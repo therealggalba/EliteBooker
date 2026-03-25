@@ -1,0 +1,273 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { db } from '../../db/db';
+import type { Show, Brand, Wrestler, Championship } from '../../models/types';
+import ResolvedImage from '../../components/Common/ResolvedImage';
+import FullscreenPoster from '../../components/Common/FullscreenPoster';
+import { GAME_CONFIG } from '../../config/gameConfig';
+import styles from './ShowDetails.module.scss';
+
+const ShowDetails = () => {
+    const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+    const [show, setShow] = useState<Show | null>(null);
+    const [brand, setBrand] = useState<Brand | null>(null);
+    const [wrestlers, setWrestlers] = useState<Wrestler[]>([]);
+    const [championships, setChampionships] = useState<Championship[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [showFullscreenPoster, setShowFullscreenPoster] = useState(false);
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+    const handlePosterUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = async () => {
+                const base64 = reader.result as string;
+                if (show?.id) {
+                    await db.shows.update(show.id, { image: base64 });
+                    setShow(prev => prev ? { ...prev, image: base64 } : null);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    useEffect(() => {
+        const loadShow = async () => {
+            if (!id) return;
+            const showData = await db.shows.get(parseInt(id));
+            if (showData) {
+                setShow(showData);
+                let brandData;
+                if (!showData.brandId || showData.brandId === -1) {
+                    brandData = GAME_CONFIG.brands.find(b => b.isShared || b.name.toUpperCase() === 'SHARED');
+                } else {
+                    brandData = await db.brands.get(showData.brandId);
+                }
+                
+                if (brandData) setBrand(brandData as Brand);
+                
+                const allWrestlers = await db.wrestlers.toArray();
+                setWrestlers(allWrestlers);
+
+                const allChamps = await db.championships.toArray();
+                setChampionships(allChamps);
+            }
+            setLoading(false);
+        };
+        loadShow();
+    }, [id]);
+
+
+    if (loading) return <div className={styles.loading}>Loading Show Details...</div>;
+    if (!show) return <div className={styles.error}>Show not found.</div>;
+
+    return (
+        <div className={styles.detailsPage} style={{ '--brand-color': brand?.primaryColor || '#e00012' } as React.CSSProperties}>
+            <header className={styles.header}>
+                <button className={styles.backBtn} onClick={() => navigate('../archive')}>← Back</button>
+                <div className={styles.titleInfo}>
+                    <h1>{show.name}</h1>
+                    <div className={styles.meta}>
+                        <span className={styles.season}>Season {show.season}</span>
+                        <span className={styles.bullet}>•</span>
+                        <span className={styles.week}>Week {show.week}</span>
+                        {show.type === 'PLE' && <span className={styles.pleBadge}>Premium Live Event</span>}
+                    </div>
+                    <div className={styles.ratingHeader}>
+                        <div className={styles.stars}>
+                            {Array.from({ length: 10 }).map((_, i) => (
+                                <span key={i} className={i < Math.floor(show.valuation || 0) ? styles.starFilled : styles.starEmpty}>
+                                    ★
+                                </span>
+                            ))}
+                        </div>
+                        <span className={styles.ratingValue}>{show.valuation?.toFixed(1) || '0.0'}</span>
+                    </div>
+                </div>
+                {brand && (
+                    <div className={styles.headerLogos}>
+                        <div className={styles.brandLogoWrapper} onClick={() => setShowFullscreenPoster(true)}>
+                            <ResolvedImage src={brand.logo} alt={brand.name} className={styles.brandLogo} />
+                        </div>
+                        <div className={styles.posterUploadArea}>
+                            <input 
+                                type="file" 
+                                ref={fileInputRef} 
+                                style={{ display: 'none' }} 
+                                accept="image/png, image/jpeg" 
+                                onChange={handlePosterUpload} 
+                            />
+                            <button className={styles.posterBtn} onClick={() => fileInputRef.current?.click()}>
+                                {show.image ? 'Change Poster' : 'Upload Poster'}
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </header>
+
+            {showFullscreenPoster && (
+                <FullscreenPoster 
+                    src={show.poster || show.image || brand?.logo || ''} 
+                    alt={show.name || 'Poster'} 
+                    onClose={() => setShowFullscreenPoster(false)} 
+                />
+            )}
+
+            <main className={styles.content}>
+                <div className={styles.carteleraLabel}>BILLBOARD</div>
+                <div className={styles.segmentsList}>
+                    {show.card?.segments.map((segment, idx) => (
+                        <div key={segment.id} className={styles.segmentCard}>
+                            <div className={styles.segmentHeader}>
+                                <span className={styles.segmentIndex}>#{idx + 1}</span>
+                                <span className={styles.segmentType}>{segment.type}</span>
+                            </div>
+
+                            {segment.type === 'Match' && segment.matchData && (
+                                <div className={styles.matchContent}>
+                                    <div className={styles.matchMetaRow}>
+                                        <div className={styles.matchType}>{segment.matchData.type}</div>
+                                        {segment.matchData.titleMatch && segment.matchData.championshipId && (
+                                            <div className={styles.titleInfoBadge}>
+                                                {(() => {
+                                                    const champ = championships.find(c => c.id === segment.matchData?.championshipId);
+                                                    return champ ? (
+                                                        <>
+                                                            <ResolvedImage src={champ.image} alt={champ.name} className={styles.champIcon} />
+                                                            <span>{champ.name}</span>
+                                                        </>
+                                                    ) : <span className={styles.titleMatchBadge}>TITLE MATCH</span>;
+                                                })()}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className={styles.participants}>
+                                        {segment.matchData.type.toLowerCase().includes("2 vs 2") || segment.matchData.participantsIds.length === 4 ? (
+                                            // TAG TEAM GROUPED LAYOUT
+                                            <>
+                                                {[0, 2].map((startIndex) => {
+                                                    const p1 = wrestlers.find(wr => wr.id === segment.matchData?.participantsIds[startIndex]);
+                                                    const p2 = wrestlers.find(wr => wr.id === segment.matchData?.participantsIds[startIndex + 1]);
+                                                    const isWinner = segment.matchData?.winnersIds.includes(p1?.id || -1) || segment.matchData?.winnersIds.includes(p2?.id || -1);
+                                                    const commonFaction = (p1?.faction && p1.faction === p2?.faction) ? p1.faction : null;
+
+                                                    return (
+                                                        <React.Fragment key={startIndex}>
+                                                            <div className={`${styles.teamBox} ${isWinner ? styles.winner : ''}`}>
+                                                                <div className={styles.teamAvatars}>
+                                                                    {p1?.avatar && <ResolvedImage src={p1.avatar} alt={p1.name} />}
+                                                                    {p2?.avatar && <ResolvedImage src={p2.avatar} alt={p2.name} />}
+                                                                </div>
+                                                                <div className={styles.teamNames}>
+                                                                    {commonFaction ? (
+                                                                        <>
+                                                                            <span className={styles.factionName}>{commonFaction}</span>
+                                                                            <span className={styles.memberNames}>({p1?.name} & {p2?.name})</span>
+                                                                        </>
+                                                                    ) : (
+                                                                        <span className={styles.namesOnly}>{p1?.name} & {p2?.name}</span>
+                                                                    )}
+                                                                </div>
+                                                                {isWinner && <div className={styles.winnerBadge}>WINNERS</div>}
+                                                            </div>
+                                                            {startIndex === 0 && <span className={styles.vs}>VS</span>}
+                                                        </React.Fragment>
+                                                    );
+                                                })}
+                                            </>
+                                        ) : segment.matchData.type.toLowerCase().includes("3 vs 3") || segment.matchData.participantsIds.length === 6 ? (
+                                            // TRIOS GROUPED LAYOUT
+                                            <>
+                                                {[0, 3].map((startIndex) => {
+                                                    const p1 = wrestlers.find(wr => wr.id === segment.matchData?.participantsIds[startIndex]);
+                                                    const p2 = wrestlers.find(wr => wr.id === segment.matchData?.participantsIds[startIndex + 1]);
+                                                    const p3 = wrestlers.find(wr => wr.id === segment.matchData?.participantsIds[startIndex + 2]);
+                                                    const isWinner = segment.matchData?.winnersIds.includes(p1?.id || -1) || 
+                                                                     segment.matchData?.winnersIds.includes(p2?.id || -1) ||
+                                                                     segment.matchData?.winnersIds.includes(p3?.id || -1);
+                                                    const commonFaction = (p1?.faction && p1.faction === p2?.faction && p1.faction === p3?.faction) ? p1.faction : null;
+
+                                                    return (
+                                                        <React.Fragment key={startIndex}>
+                                                            <div className={`${styles.teamBox} ${styles.trios} ${isWinner ? styles.winner : ''}`}>
+                                                                <div className={styles.teamAvatars}>
+                                                                    {p1?.avatar && <ResolvedImage src={p1.avatar} alt={p1.name} />}
+                                                                    {p2?.avatar && <ResolvedImage src={p2.avatar} alt={p2.name} />}
+                                                                    {p3?.avatar && <ResolvedImage src={p3.avatar} alt={p3.name} />}
+                                                                </div>
+                                                                <div className={styles.teamNames}>
+                                                                    {commonFaction ? (
+                                                                        <>
+                                                                            <span className={styles.factionName}>{commonFaction}</span>
+                                                                            <span className={styles.memberNames}>({p1?.name} & {p2?.name} & {p3?.name})</span>
+                                                                        </>
+                                                                    ) : (
+                                                                        <span className={styles.namesOnly}>{p1?.name} & {p2?.name} & {p3?.name}</span>
+                                                                    )}
+                                                                </div>
+                                                                {isWinner && <div className={styles.winnerBadge}>WINNERS</div>}
+                                                            </div>
+                                                            {startIndex === 0 && <span className={styles.vs}>VS</span>}
+                                                        </React.Fragment>
+                                                    );
+                                                })}
+                                            </>
+                                        ) : (
+                                            // SINGLES / MULTI LAYOUT (Standard)
+                                            segment.matchData.participantsIds.map((pid, pIdx) => {
+                                                const w = wrestlers.find(wr => wr.id === pid);
+                                                const isWinner = segment.matchData?.winnersIds.includes(pid);
+                                                return (
+                                                    <React.Fragment key={pIdx}>
+                                                        <div className={`${styles.wrestlerBox} ${isWinner ? styles.winner : ''}`}>
+                                                            {w?.avatar && <ResolvedImage src={w.avatar} alt={w.name} />}
+                                                            <span>{w?.name || 'Unknown'}</span>
+                                                            {isWinner && <div className={styles.winnerBadge}>WINNER</div>}
+                                                        </div>
+                                                        {pIdx < segment.matchData!.participantsIds.length - 1 && <span className={styles.vs}>VS</span>}
+                                                    </React.Fragment>
+                                                );
+                                            })
+                                        )}
+                                    </div>
+                                    {segment.matchData.notes && (
+                                        <div className={styles.notes}>
+                                            {segment.matchData.notes}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {segment.type === 'Promo' && segment.promoData && (
+                                <div className={styles.promoContent}>
+                                    <div className={styles.promoParticipants}>
+                                        {segment.promoData.participantsIds.map(pid => {
+                                            const w = wrestlers.find(wr => wr.id === pid);
+                                            return (
+                                                <div key={pid} className={styles.promoWrestler}>
+                                                    {w?.avatar && <ResolvedImage src={w.avatar} alt={w.name} />}
+                                                    <span>{w?.name}</span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className={styles.description}>{segment.promoData.description}</div>
+                                </div>
+                            )}
+
+                            {segment.type === 'Video' && segment.videoData && (
+                                <div className={styles.videoContent}>
+                                    <div className={styles.description}>{segment.videoData.description}</div>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </main>
+        </div>
+    );
+};
+
+export default ShowDetails;

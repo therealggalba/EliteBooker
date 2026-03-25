@@ -1,0 +1,63 @@
+.star-border-container {
+  display: flex;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  /* padding is handled via inline style from thickness prop */
+  z-index: 1;
+}
+
+.star-border-container::before {
+  content: "";
+  position: absolute;
+  /* Make it significantly larger than the container to allow for rotation covering corners */
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  /* Use conic-gradient for a "light sweep" or "rotating star" effect */
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    var(--border-color, #fff) 15%,
+    transparent 30%,
+    transparent 50%,
+    var(--border-color, #fff) 65%,
+    transparent 80%,
+    transparent 100%
+  );
+  animation: rotate-clockwise var(--speed, 6s) linear infinite;
+  z-index: -1;
+  transition: animation-duration 0.5s ease;
+}
+
+.star-border-container:hover::before {
+  animation-duration: 2s; /* Faster but "normal" limit speed for hover */
+}
+
+.inner-content {
+  position: relative;
+  background: #000;
+  border-radius: 16px; /* Slightly less than container to show border */
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes rotate-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Remove old linear gradient divs as we'll remove them from TSX too */
+.border-gradient-bottom,
+.border-gradient-top {
+  display: none;
+}

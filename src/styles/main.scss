@@ -1,0 +1,68 @@
+@use 'variables' as *;
+
+:root {
+  font-family: $font-family;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: $text-white;
+  background-color: $dark-bg;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  font-weight: 500;
+  color: $primary-gold;
+  text-decoration: inherit;
+  transition: color $standard-transition;
+
+  &:hover {
+    color: $secondary-gold;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid rgba($primary-gold, 0.2);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: $card-bg;
+  color: $text-white;
+  cursor: pointer;
+  transition: all $standard-transition;
+
+  &:hover {
+    border-color: $primary-gold;
+    background-color: rgba($primary-gold, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

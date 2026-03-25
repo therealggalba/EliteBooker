@@ -1,0 +1,371 @@
+@use '../../styles/variables' as *;
+
+.optionsSection {
+  padding: 2rem;
+  min-height: calc(100vh - 80px);
+  background: #080808;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1.5rem;
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #fff;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.sectionCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: $primary-gold;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.sectionDescription {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.settingInfo {
+  .settingLabel {
+    display: block;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .settingDescription {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+// Switch Styles
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  flex-shrink: 0;
+
+  input { opacity: 0; width: 0; height: 0; }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: .4s;
+  border-radius: 34px;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+}
+
+input:checked + .slider {
+  background-color: $primary-gold;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.numberInput {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  width: 80px;
+  font-family: inherit;
+  font-weight: 700;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-gold;
+  }
+}
+
+.statusBadge {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  text-align: center;
+}
+
+.persistenceActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.saveButton, .resetButton {
+  padding: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+.saveButton {
+  background: #fff;
+  color: #000;
+  border: none;
+  &:hover { background: #eee; transform: translateY(-2px); }
+}
+
+.resetButton {
+  background: transparent;
+  color: #ff4444;
+  border: 1px solid #ff4444;
+  &:hover { background: rgba(255, 68, 68, 0.1); transform: translateY(-2px); }
+}
+
+.slotsManagement {
+  margin-top: 1rem;
+}
+
+.subTitle {
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.slotsMiniList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.slotMiniItem {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.8rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slotMiniInfo {
+  .slotMiniName { font-weight: 700; font-size: 0.9rem; margin-right: 1rem; }
+  .slotMiniDate { font-size: 0.75rem; opacity: 0.3; }
+}
+
+.deleteSlotBtn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 1.2rem;
+  cursor: pointer;
+  &:hover { color: $primary-gold; }
+}
+
+.actionNote {
+  margin-top: auto;
+  padding-top: 2rem;
+  p {
+    opacity: 0.6;
+    font-size: 0.85rem;
+  }
+  .lockedSelect {
+    background: rgba(white, 0.05);
+    border: 1px solid rgba($primary-gold, 0.2);
+    color: $text-white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 700;
+    opacity: 0.8;
+    cursor: not-allowed;
+    min-width: 120px;
+  }
+}
+
+.languageSelect {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: $primary-gold;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-gold;
+  }
+
+  option {
+    background: #1a1a1a;
+    color: #fff;
+  }
+}
+
+.assetStatus {
+  margin: 1.5rem 0;
+}
+
+.linkButton {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: $primary-gold;
+  }
+
+  &.warning {
+    background: rgba(255, 152, 0, 0.1);
+    border-color: rgba(255, 152, 0, 0.3);
+    color: #ff9800;
+
+    &:hover {
+      background: rgba(255, 152, 0, 0.2);
+      border-color: #ff9800;
+    }
+  }
+}
+
+.folderActive {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(0, 255, 0, 0.05);
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  font-size: 0.85rem;
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #4ade80;
+  animation: pulse 2s infinite;
+}
+
+.smallButton {
+  background: transparent;
+  border: none;
+  color: #666;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.75rem;
+  margin-left: auto;
+  font-family: inherit;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.assetNote {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 1rem;
+  line-height: 1.4;
+
+  code {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    color: #999;
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
