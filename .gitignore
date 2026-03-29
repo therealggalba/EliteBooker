@@ -28,3 +28,4 @@ visuals
 ai_brainstorming.md.resolved
 implementations.md
 export_db.ts
+.env

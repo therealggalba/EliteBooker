@@ -234,6 +234,23 @@
     "save_success": "Partida guardada en el slot: {{name}}",
     "save_error": "Error al guardar la partida"
   },
+  "feedback": {
+    "title": "Enviar Feedback / Reportar Bug",
+    "type_label": "Tipo de Mensaje",
+    "type_bug": "Error / Problema",
+    "type_suggestion": "Sugerencia / Nueva Función",
+    "type_praise": "Elogio / Me gusta",
+    "type_other": "Otro",
+    "username_label": "Nombre de Usuario (Opcional)",
+    "username_placeholder": "Tu nombre o @discord_handle...",
+    "message_label": "Tu Mensaje",
+    "message_placeholder": "Describe el error o comparte tu idea...",
+    "success_msg": "¡Feedback enviado con éxito! Gracias por ayudarnos a mejorar.",
+    "error_msg": "Error al enviar:",
+    "about_title": "Información y Ayuda",
+    "about_desc": "Ayúdanos a mejorar EliteBooker reportando fallos o sugiriendo nuevas ideas para futuras actualizaciones.",
+    "btn_open": "REPORTE DE BUGS / FEEDBACK"
+  },
   "roster": {
     "loading": "Cargando Roster..."
   },

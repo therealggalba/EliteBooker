@@ -8,6 +8,7 @@ import styles from './Options.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { linkAssetsFolder, initAssetsFolder, checkAssetsPermission, requestAssetsPermission } from '../../utils/assetResolver';
 import { useTranslation } from 'react-i18next';
+import FeedbackModal from '../../components/FeedbackModal/FeedbackModal';
 
 interface SaveSlot {
   id?: number;
@@ -27,6 +28,9 @@ const Options = () => {
   // Local Assets State
   const [hasLinkedFolder, setHasLinkedFolder] = useState(false);
   const [folderPermission, setFolderPermission] = useState<boolean>(false);
+  
+  // Feedback Modal State
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   useEffect(() => {
     const loadSettings = async () => {
@@ -287,7 +291,31 @@ const Options = () => {
           </div>
         </div>
 
+        {/* About & Feedback */}
+        <div className={styles.sectionCard}>
+          <h2 className={styles.sectionTitle}>{t('feedback.about_title')}</h2>
+          <p className={styles.sectionDescription}>
+            {t('feedback.about_desc')}
+          </p>
+          
+          <div className={styles.feedbackActions}>
+            <button className={styles.feedbackButton} onClick={() => setIsFeedbackOpen(true)}>
+              {t('feedback.btn_open')}
+            </button>
+          </div>
+          
+          <div className={styles.versionInfo}>
+             <p>EliteBooker v0.8.0-beta</p>
+             <p>© 2026 EliteBooker Dev</p>
+          </div>
+        </div>
+
       </div>
+
+      <FeedbackModal 
+        isOpen={isFeedbackOpen} 
+        onClose={() => setIsFeedbackOpen(false)} 
+      />
     </section>
   );
 };

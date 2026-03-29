@@ -234,6 +234,23 @@
     "save_success": "Game saved to slot: {{name}}",
     "save_error": "Error saving the game"
   },
+  "feedback": {
+    "title": "Send Feedback / Report Bug",
+    "type_label": "Message Type",
+    "type_bug": "Bug / Problem",
+    "type_suggestion": "Suggestion / Feature Request",
+    "type_praise": "Praise / Love",
+    "type_other": "Other",
+    "username_label": "Username (Optional)",
+    "username_placeholder": "Your name or @discord_handle...",
+    "message_label": "Your Message",
+    "message_placeholder": "Describe the bug or share your idea...",
+    "success_msg": "Feedback sent successfully! Thank you for helping us improve.",
+    "error_msg": "Error sending feedback:",
+    "about_title": "Info & Support",
+    "about_desc": "Help us improve EliteBooker by reporting bugs or suggesting new ideas for future updates.",
+    "btn_open": "BUG REPORT / FEEDBACK"
+  },
   "roster": {
     "loading": "Loading Roster..."
   },

@@ -72,7 +72,7 @@
   },
   {
     "name": "Andre Chase", "brandName": "NXT",
-    "avatar": "https://res.cloudinary.com/dgvthwz6h/image/upload/v1774380691/andreachaseavatar.png", "image": "https://res.cloudinary.com/dgvthwz6h/image/upload/v1774380691/andreachasefull.png",
+    "avatar": "https://res.cloudinary.com/dgvthwz6h/image/upload/v1774380691/andrechaseavatar.png", "image": "https://res.cloudinary.com/dgvthwz6h/image/upload/v1774380691/andrechasefull.png",
     "gender": "Male", "alignment": "Face", "faction": "Chase U", "rating": 79,
     "wins": 0, "losses": 0, "draws": 0, "injuryStatus": "None", "moral": 100,
     "holdsTitleNames": []

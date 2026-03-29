@@ -159,14 +159,18 @@ input:checked + .slider:before {
   text-align: center;
 }
 
-.persistenceActions {
+.persistenceActions, .feedbackActions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.saveButton, .resetButton {
+.feedbackActions {
+  grid-template-columns: 1fr;
+}
+
+.saveButton, .resetButton, .feedbackButton {
   padding: 1rem;
   font-weight: 800;
   cursor: pointer;
@@ -176,11 +180,17 @@ input:checked + .slider:before {
   text-transform: uppercase;
 }
 
-.saveButton {
+.saveButton, .feedbackButton {
   background: #fff;
   color: #000;
   border: none;
   &:hover { background: #eee; transform: translateY(-2px); }
+  
+  &.feedbackButton {
+    background: $primary-gold;
+    color: #000;
+    &:hover { background: #fff; }
+  }
 }
 
 .resetButton {
@@ -188,6 +198,14 @@ input:checked + .slider:before {
   color: #ff4444;
   border: 1px solid #ff4444;
   &:hover { background: rgba(255, 68, 68, 0.1); transform: translateY(-2px); }
+}
+
+.versionInfo {
+  margin-top: auto;
+  opacity: 0.3;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .slotsManagement {
