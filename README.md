@@ -1,61 +1,79 @@
 # 🤼 EliteBooker - El Universo en tus Manos
 
+![EliteBooker Banner](./public/elitebooker_banner.png)
+
 [![Build Status](https://img.shields.io/github/actions/workflow/status/therealggalba/EliteBooker/deploy.yml?branch=main)](https://github.com/therealggalba/EliteBooker/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 
-**EliteBooker** es una plataforma interactiva de gestión y simulación de universos de lucha libre profesional. Diseñada para entusiastas que buscan llevar sus partidas de WWE 2K o AEW Fight Forever al siguiente nivel, integrando inteligencia artificial avanzada para actuar como un "General Manager Assistant".
+**EliteBooker** es la herramienta definitiva para la gestión de lucha libre profesional. Diseñada para entusiastas que buscan llevar un control total, visual y dinámico de sus promociones, ya sean recreaciones de WWE, AEW o universos totalmente originales.
 
 ---
 
-## 🔗 Enlaces de Interés
+## 🔗 Enlaces Rápidos
 
-- **Despliegue en Vivo:** [https://therealggalba.github.io/EliteBooker/](https://therealggalba.github.io/EliteBooker/)
-- **Documentación de Diapositivas:** [PRESENTATION.md](./PRESENTATION.md)
+- 🌐 **Despliegue en Vivo:** [EliteBooker Web](https://therealggalba.github.io/EliteBooker/)
+- 📊 **Presentación (Slides):** [Ver PRESENTATION.pdf](./PRESENTATION.pdf)
+
+---
+
+## ✨ Funcionalidades Principales
+
+EliteBooker no es solo una base de datos, es una experiencia de GM (General Manager) completa:
+
+- 🤖 **GM Assistant (AI Local):** Un asistente inteligente integrado que utiliza **Web-LLM** para ejecutar modelos de lenguaje directamente en tu navegador. Planifica rivalidades, recibe sugerencias de combates y gestiona tu roster sin que tus datos salgan de tu PC.
+- 🌍 **Gestión de Universos:** Importa, exporta y crea universos completos. Soporte nativo para múltiples marcas (RAW, SmackDown, Dynamite), títulos y rosters dinámicos.
+- 📰 **Digital Newspaper:** Al finalizar cada show, se genera automáticamente un periódico digital con acabados premium que resume los resultados, cambios de títulos y noticias destacadas.
+- 🎲 **Simulación Avanzada:** Motor de resultados basado en estadísticas, momentum y azar, con soporte para estipulaciones especiales (Royal Rumble, Elimination Chamber, etc.).
+- 🔒 **Privacidad Total:** Gracias a **Dexie.js** e **IndexedDB**, todos tus progresos se guardan localmente en tu navegador. Sin cuentas, sin rastreadores, solo tú y tu pasión.
 
 ---
 
 ## 🛠️ Stack Tecnológico
 
-| Tecnología | Propósito |
+| Componente | Tecnología |
 | :--- | :--- |
-| **React 19** | Biblioteca principal para la interfaz de usuario, aprovechando las últimas mejoras de rendimiento. |
-| **Vite** | Herramienta de construcción (build tool) para un desarrollo ultra rápido. |
-| **TypeScript** | Tipado estático para un código robusto y mantenible. |
-| **Web-LLM (@mlc-ai)** | Ejecución de modelos de lenguaje (LLM) localmente en el navegador para el GM Assistant. |
-| **Dexie.js** | Capa de abstracción sobre IndexedDB para persistencia de datos local persistente y eficiente. |
-| **SCSS Modules** | Estilizado modular y mantenible sin colisiones de nombres. |
-| **i18next** | Sistema de internacionalización completo (Soporte ES/EN). |
-| **Vitest** | Framework de pruebas unitarias y de componentes optimizado para Vite. |
+| **Frontend** | [React 19](https://react.dev/) & [Vite](https://vitejs.dev/) |
+| **Lenguaje** | [TypeScript](https://www.typescriptlang.org/) |
+| **Modelos AI** | [Web-LLM (@mlc-ai)](https://webllm.mlc.ai/) |
+| **Persistencia** | [Dexie.js](https://dexie.org/) (IndexedDB) |
+| **Estilos** | SCSS Modules & Three.js (Visuals) |
+| **i18n** | [i18next](https://www.i18next.com/) (Español / Inglés) |
+| **Testing** | [Vitest](https://vitest.dev/) |
 
 ---
 
-## 🚀 Instalación y Ejecución
+## 🚀 Instalación y Ejecución Local
 
-Sigue estos pasos para configurar el proyecto en tu entorno local:
+Si deseas contribuir o ejecutar el proyecto en tu máquina local, sigue estos pasos:
 
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone https://github.com/therealggalba/EliteBooker.git
-    cd EliteBooker
-    ```
+1. **Clonar el repositorio:**
 
-2.  **Instalar dependencias:**
-    ```bash
-    npm install
-    ```
+   ```bash
+   git clone https://github.com/therealggalba/EliteBooker.git
+   cd EliteBooker
+   ```
 
-3.  **Iniciar el servidor de desarrollo:**
-    ```bash
-    npm run dev
-    ```
-    El proyecto estará disponible en `http://localhost:5173/`.
+2. **Instalar dependencias:**
 
-4.  **Ejecutar pruebas:**
-    ```bash
-    npm test
-    ```
+   ```bash
+   npm install
+   ```
+
+3. **Iniciar el entorno de desarrollo:**
+
+   ```bash
+   npm run dev
+   ```
+
+   Accede a `http://localhost:5173/` y ¡empieza a bookear!
+
+4. **Ejecutar Tests:**
+
+   ```bash
+   npm test
+   ```
 
 ---
 
@@ -63,41 +81,21 @@ Sigue estos pasos para configurar el proyecto en tu entorno local:
 
 ```text
 EliteBooker/
-├── public/             # Activos estáticos y presets de universos (JSON)
-├── scripts/            # Scripts de utilidad (migración, generación de datos)
+├── public/             # Activos estáticos, presets (JSON) y Banner
+├── scripts/            # Herramientas de migración y generación de datos
 ├── src/
-│   ├── assets/         # Imágenes y recursos locales
-│   ├── components/     # Componentes React reutilizables (GMChat, Newspaper, etc.)
-│   ├── config/         # Configuración global del juego
-│   ├── db/             # Lógica de persistencia con Dexie.js
-│   ├── hooks/          # Hooks personalizados
-│   ├── locales/        # Archivos de traducción (i18n)
-│   ├── models/         # Definiciones de tipos e interfaces
-│   ├── pages/          # Vistas principales (Landing, Universe, Show)
-│   ├── styles/         # Estilos globales y tokens de diseño
-│   ├── utils/          # Funciones de utilidad y lógica de negocio
-│   ├── App.tsx         # Componente raíz y enrutamiento
-│   └── main.tsx        # Punto de entrada de la aplicación
-├── index.html          # Template HTML principal
-└── vite.config.ts      # Configuración de Vite/Vitest
+│   ├── assets/         # Recursos de diseño y multimedia
+│   ├── components/     # Componentes React (GM Chat, Newspaper, UI Kit)
+│   ├── config/         # Ajustes globales y lógica de juego
+│   ├── db/             # Capa de datos local (Dexie)
+│   ├── hooks/          # Hooks personalizados de lógica y estado
+│   ├── locales/        # Traducciones (i18n)
+│   ├── models/         # Tipos e Interfaces de TS
+│   ├── pages/          # Vistas principales del sistema
+│   ├── styles/         # Temas, variables y estilos globales
+│   ├── utils/          # Lógica de negocio y funciones puras
+│   └── main.tsx        # Punto de entrada
+└── vite.config.ts      # Configuración de compilación y despliegue
 ```
 
----
-
-## ✨ Funcionalidades Principales
-
-1.  **GM Assistant (IA Local):** Un asistente inteligente que utiliza modelos LLM ejecutados localmente para ayudarte a planear rivalidades, sugerir combates y gestionar tu roster.
-2.  **Gestión de Universos:** Crea, importa y exporta universos completos de WWE, AEW o personalizados. Gestiona marcas (RAW, SmackDown), luchadores y campeonatos.
-3.  **Motor de Simulación de Resultados:** Sistema dinámico para generar resultados de combates basados en estadísticas o azar, con soporte para tipos de combate especiales (Royal Rumble, Elimination Chamber).
-4.  **Digital Newspaper:** Generación automática de reportajes visuales sobre los acontecimientos del último show, presentados en un formato de periódico digital premium.
-5.  **Persistencia Local:** Tus datos nunca salen de tu navegador. Gracias a IndexedDB, tu partida se guarda automáticamente de forma segura y privada.
-
----
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
-
----
-
-*Producido con la asistencia de **Antigravity AI**.*
+*Desarrollado con la pasión de un fan de la lucha libre y la asistencia técnica de **Antigravity AI**.*

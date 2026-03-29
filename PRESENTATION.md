@@ -6,22 +6,23 @@ Este documento sirve como base para la presentación del proyecto **EliteBooker*
 
 ## Diapositiva 1: Portada
 - **Título:** EliteBooker
-- **Subtítulo:** Gestión de Universos de Lucha Libre impulsada por Inteligencia Artificial Local.
+- **Subtítulo:** Gestión de wrestling impulsada por Inteligencia Artificial Local.
 - **Autor:** [Tu Nombre / therealggalba]
 - **Enlace:** [https://therealggalba.github.io/EliteBooker/](https://therealggalba.github.io/EliteBooker/)
 
 ---
 
 ## Diapositiva 2: El Problema
-- **Contexto:** Los juegos de la saga WWE 2K tienen un "Modo Universo" limitado en personalización y narrativa.
-- **Dolor:** Los jugadores suelen trackear sus partidas en hojas de Excel complejas o aplicaciones de notas genéricas.
+- **Contexto:** Plataforma de control para promotores de wrestling o simplemente jugadores de videojuegos en sus propias casas.
+- **Dolor:** Los promotores suelen trackear sus partidas en hojas de Excel complejas o aplicaciones de notas genéricas.
 - **Necesidad:** Una herramienta dedicada que unifique la gestión, la simulación y la creatividad narrativa.
+- **Codicia:** Además de algo real, puede ser considerado simplemente un videojuego de simulación escrita.
 
 ---
 
 ## Diapositiva 3: La Solución - EliteBooker
-- **Propuesta:** Una aplicación web PWA diseñada específicamente para gestionar universos de lucha libre profesional.
-- **Diferenciador:** Integración de un **GM Assistant** que usa IA local para generar ideas, rivalidades y diálogos, actuando como un co-guionista para el jugador.
+- **Propuesta:** Una aplicación web PWA diseñada específicamente para gestionar promociones de lucha libre profesional.
+- **Diferenciador:** Guia visual de eventos y campeonatos de cada promoción. Integración de un **GM Assistant** que usa IA local para generar ideas, rivalidades y diálogos, actuando como un co-guionista para el jugador.
 
 ---
 
@@ -54,15 +55,16 @@ Este documento sirve como base para la presentación del proyecto **EliteBooker*
 ---
 
 ## Diapositiva 8: Próximos Pasos (Hoja de Ruta)
-- **Modo Multijugador:** Gestión de ligas compartidas.
-- **Editor de Gráficos:** Crear logos y carteles personalizados dentro de la app.
-- **Sincronización Cloud:** Opción de backup en la nube.
+- **Creación de luchadores, campeonatos, marcas, etc.** Posibilidad de implementar detalles con una partida Ya comenzada.
+- **Sistema de simulación de resultados:** El sistema de simulación de resultados que permita simular combates y obtener resultados realistas.
+- **Sistema de ratings automático:** El sistema de ratings automático que permita obtener ratings realistas para poder retarse a uno mismo.
 
 ---
 
 ## Diapositiva 9: Conclusión y Preguntas
 - **Cierre:** EliteBooker no es solo una base de datos; es el asistente definitivo para cualquier "Booker" o "General Manager".
-- **Llamada a la Acción:** ¡Pruébalo ahora en GitHub Pages!
+- **Feedback:** Mediante un webhook de discord, se recibirán bugs, mejoras y cualquier mensaje para el futuro desarrollo.
+- **Llamada a la Acción:** ¡Pruébalo ahora!
 
 ---
 
